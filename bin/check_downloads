@@ -1,0 +1,4 @@
+#!/opt/local/bin/ruby
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'downloads'
+Downloads.new.check
