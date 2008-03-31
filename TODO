@@ -1,4 +1,3 @@
-* TODO capture external unix requirements like openssl, diff, rsync configured a certain way, growlnotify...
-* TODO forward original messages from attachment emails
 * TODO rather than 7 download scripts, use command-line switches?
 * TODO use some ruby-growl gem?
+* TODO forward original messages from attachment emails
