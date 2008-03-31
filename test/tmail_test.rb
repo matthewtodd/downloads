@@ -21,9 +21,4 @@ class TMailTest < Test::Unit::TestCase
     assert_equal 'matthewtodd.jpg', @attachments.first.original_filename
     assert_equal 12308, @attachments.first.size
   end
-  
-  def test_making_an_attachmentless_copy
-    message = @message.strip_attachments
-    assert_equal 0, message.attachments.size
-  end
 end

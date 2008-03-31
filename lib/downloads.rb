@@ -1,9 +1,6 @@
 require 'tempfile'
 require 'rubygems'
-require 'active_support'
-$:.unshift File.join(File.dirname(__FILE__), 'vendor')
 require 'tmail'
-require 'extensions/tmail_extensions'
 
 class Downloads
   REMOTE_HOST      = 'matthewtodd.org'
@@ -46,13 +43,7 @@ class Downloads
   def fetch(url, *options)
     exec 'ssh', REMOTE_HOST, "cd #{REMOTE_DIRECTORY}; wget '#{url}' #{options.join(' ')}"
   end
-  
-  def forward_without_attachments(stream)
-    message    = TMail::Mail.parse(stream.read).strip_attachments
-    message.to = FORWARD_TO
-    message.send_to(TMail::Sendmail.new)
-  end
-  
+    
   def pending
     exec 'ssh', REMOTE_HOST, "ls -lh #{REMOTE_DIRECTORY} | cut -c 32-38,51- | tail +2"
   end
