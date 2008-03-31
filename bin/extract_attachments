@@ -1,4 +1,6 @@
-#!/usr/local/bin/ruby
+#!/usr/bin/env ruby -w
+
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'downloads'
+
 Downloads.new.extract_attachments(ARGF)

@@ -6,7 +6,6 @@ require 'tmail'
 require 'extensions/tmail_extensions'
 
 class Downloads
-  # TODO instead of constants, take an options hash in the constructor
   REMOTE_HOST      = 'matthewtodd.org'
   REMOTE_DIRECTORY = '/users/home/matthew/downloads'
   LOCAL_DIRECTORY  = '/Users/mtodd/Desktop'

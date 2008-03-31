@@ -1,3 +1,5 @@
 * TODO switch to dependency on TMail gem
 * TODO read configuration from an external file
 * TODO forward original messages from attachment emails
+* TODO rather than 7 download scripts, use command-line switches?
+* TODO use some ruby-growl gem?
