@@ -12,6 +12,8 @@ spec = Gem::Specification.new do |spec|
   spec.author           = 'Matthew Todd'
   spec.email            = 'matthew.todd@gmail.com'
   # spec.homepage         = 'http://docs.matthewtodd.org/downloads'
+  
+  spec.add_dependency     'activesupport', '>= 2.0.2'
 end
 
 Rake::GemReleaseTask.new(spec) do |task|
