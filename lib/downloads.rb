@@ -1,16 +1,21 @@
 require 'tempfile'
+require 'yaml'
 require 'rubygems'
 require 'tmail'
 
 class Downloads
+  CONFIG_FILE = File.join(ENV['HOME'], '.downloads')
+  
   attr_reader :remote_host
   attr_reader :remote_directory
   attr_reader :local_directory
   
   def initialize
-    @remote_host      = 'matthewtodd.org'
-    @remote_directory = '/users/home/matthew/downloads'
-    @local_directory  = '/Users/mtodd/Desktop'
+    config = YAML.load_file(CONFIG_FILE)
+    
+    @remote_host      = config['remote_host']
+    @remote_directory = config['remote_directory']
+    @local_directory  = config['local_directory']
   end
   
   def check
