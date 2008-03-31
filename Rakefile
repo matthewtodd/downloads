@@ -3,7 +3,7 @@ require 'rake/gemreleasetask'
 
 spec = Gem::Specification.new do |spec| 
   spec.name             = 'downloads'
-  spec.version          = '0.2.0'
+  spec.version          = '0.2.1'
   spec.summary          = 'Downloads uses ssh, rsync and tmail to reliably get big files into Tanzania.'
   spec.files            = FileList['README', 'TODO', 'bin/*', 'lib/**/*.rb'].to_a
   spec.executables      = ['check_downloads', 'cleanup_downloads', 'download', 'extract_attachments', 'pending_downloads', 'restart_downloading', 'stop_downloading']

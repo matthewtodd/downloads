@@ -55,7 +55,7 @@ class Downloads
   end
     
   def pending
-    exec 'ssh', remote_host, "ls -lh #{remote_directory} | cut -c 32-38,51- | tail +2"
+    exec 'ssh', remote_host, "ls -lh #{remote_directory} | ruby -n -e 'ls = $_.strip.split(/\s+/, 9); printf \"%4s %s\n\", ls[4], ls[8]' | tail +2"
   end
   
   def restart
