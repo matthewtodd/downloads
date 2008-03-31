@@ -1,4 +1,6 @@
 require 'test/unit'
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'downloads'
 
 class TMailTest < Test::Unit::TestCase
