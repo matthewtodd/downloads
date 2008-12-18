@@ -19,6 +19,32 @@ class Downloads
     @local_directory  = config['local_directory']
   end
 
+  def extract(stream)
+    TMail::Mail.parse(stream.read).attachments.each do |attachment|
+      filename = File.join(remote_directory, attachment.original_filename)
+      File.open(filename, 'wb') { |file| file.write(attachment.read) }
+      File.chmod(0644, filename)
+    end
+  end
+
+  def fetch_start
+    stop
+    pid = fork { exec 'rsync', '--recursive', '--partial', '--progress', "#{remote_host}:#{remote_directory}/", "#{local_directory}/" }
+    File.open(PID_FILE, 'w') { |file| file.write(pid) }
+    Process.wait
+  rescue Interrupt
+  ensure
+    File.delete(PID_FILE)
+  end
+
+  def fetch_stop
+    `kill #{File.read(PID_FILE)}` if File.exists?(PID_FILE)
+  end
+
+  def queue_add(url, *options)
+    exec 'ssh', remote_host, "cd #{remote_directory}; wget '#{url}' #{options.join(' ')}"
+  end
+
   def queue_check
     Tempfile.open('remote_md5s') do |remote|
       remote.write `ssh #{remote_host} 'cd #{remote_directory}; openssl md5 *'`
@@ -36,25 +62,7 @@ class Downloads
     exec 'ssh', remote_host, "cd #{remote_directory}; rm *"
   end
 
-  def queue_add(url, *options)
-    exec 'ssh', remote_host, "cd #{remote_directory}; wget '#{url}' #{options.join(' ')}"
-  end
-
   def queue_list
     exec 'ssh', remote_host, "ls -lh #{remote_directory}"
-  end
-
-  def fetch_start
-    stop
-    pid = fork { exec 'rsync', '--recursive', '--partial', '--progress', "#{remote_host}:#{remote_directory}/", "#{local_directory}/" }
-    File.open(PID_FILE, 'w') { |file| file.write(pid) }
-    Process.wait
-  rescue Interrupt
-  ensure
-    File.delete(PID_FILE)
-  end
-
-  def fetch_stop
-    `kill #{File.read(PID_FILE)}` if File.exists?(PID_FILE)
   end
 end
