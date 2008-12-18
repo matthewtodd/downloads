@@ -1,1 +1,4 @@
-Not yet.
+== Bash Completion
+In your .profile, or wherever you prefer:
+
+  complete -o default -C 'downloads complete' downloads
