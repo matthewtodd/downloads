@@ -52,7 +52,7 @@ class Downloads
     exec 'ssh', remote_host, "ls -lh #{remote_directory}"
   end
 
-  def restart
+  def start
     stop
     pid = fork { exec 'rsync', '--recursive', '--partial', '--progress', "#{remote_host}:#{remote_directory}/", "#{local_directory}/" }
     File.open(PID_FILE, 'w') { |file| file.write(pid) }

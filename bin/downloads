@@ -15,9 +15,11 @@ class CLI
   def fetch(*args)
     case args.first
     when nil
-      @downloads.restart
+      @downloads.start
     when '--stop'
       @downloads.stop
+    else
+      usage
     end
   end
 
@@ -33,6 +35,14 @@ class CLI
       @downloads.fetch(*args)
     end
   end
+
+  def usage
+    puts "Usage:"
+    puts "#{$0} extract"
+    puts "#{$0} fetch [--stop]"
+    puts "#{$0} queue [<url> [-O <filename>]|--check|--clean]"
+    exit 1
+  end
 end
 
 cli = CLI.new
@@ -43,4 +53,6 @@ when 'fetch'
   cli.fetch(*ARGV)
 when 'queue'
   cli.queue(*ARGV)
+else
+  cli.usage
 end
