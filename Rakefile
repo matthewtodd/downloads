@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'rake/clean'
 require 'rake/rdoctask'
+require 'rake/testtask'
+
+task :default => :test
 
 spec = Gem::Specification.new do |spec|
   spec.name             = 'downloads'
@@ -28,9 +31,16 @@ task :gemspec do
   end
 end
 
-desc 'Generate documentation for the has_digest plugin.'
+desc 'Generate documentation for the downloads gem.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'docs'
   rdoc.options    = spec.rdoc_options
   rdoc.rdoc_files = spec.files
+end
+
+desc 'Test the downloads gem.'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
 end
