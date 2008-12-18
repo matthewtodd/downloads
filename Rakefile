@@ -1,12 +1,13 @@
 require 'rubygems'
-require 'rake/gemreleasetask'
+require 'rake/clean'
+require 'rake/rdoctask'
 
 spec = Gem::Specification.new do |spec|
   spec.name             = 'downloads'
-  spec.version          = '0.2.1'
+  spec.version          = '0.2.99'
   spec.summary          = 'Downloads uses ssh, rsync and tmail to reliably get big files into Tanzania.'
   spec.files            = FileList['README', 'TODO', 'bin/*', 'lib/**/*.rb'].to_a
-  spec.executables      = ['check_downloads', 'cleanup_downloads', 'download', 'extract_attachments', 'pending_downloads', 'restart_downloading', 'stop_downloading']
+  spec.executables      = ['downloads']
   spec.author           = 'Matthew Todd'
   spec.email            = 'matthew.todd@gmail.com'
   spec.homepage         = 'http://www.matthewtodd.org'
@@ -19,7 +20,20 @@ spec = Gem::Specification.new do |spec|
   spec.requirements    << 'rsync'
 end
 
-Rake::GemReleaseTask.new(spec) do |task|
-  task.remote_gem_host  = 'woodward'
-  task.remote_gem_dir   = '/users/home/matthew/domains/gems.matthewtodd.org/web/public'
+desc 'Generate a gemspec file'
+task :gemspec do
+  File.open("#{spec.name}.gemspec", 'w') do |f|
+    f.write spec.to_ruby
+  end
 end
+
+desc 'Generate documentation for the has_digest plugin.'
+Rake::RDocTask.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'docs'
+  rdoc.title    = 'Downloads'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('TODO')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
