@@ -3,4 +3,5 @@
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'downloads'
 
+warn "#{$0} is deprecated. Use 'downloads fetch --stop' instead."
 Downloads.new.stop

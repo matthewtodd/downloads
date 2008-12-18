@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby -w
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'downloads'
+
+class CLI
+  def initialize
+    @downloads = Downloads.new
+  end
+
+  def extract(message)
+    @downloads.extract_attachments(message)
+  end
+
+  def fetch(*args)
+    case args.first
+    when nil
+      @downloads.restart
+    when '--stop'
+      @downloads.stop
+    end
+  end
+
+  def queue(*args)
+    case args.first
+    when nil
+      @downloads.pending
+    when '--check'
+      @downloads.check
+    when '--clean'
+      @downloads.clean
+    else
+      @downloads.fetch(*args)
+    end
+  end
+end
+
+cli = CLI.new
+case ARGV.shift
+when 'extract'
+  cli.extract(ARGF)
+when 'fetch'
+  cli.fetch(*ARGV)
+when 'queue'
+  cli.queue(*ARGV)
+end

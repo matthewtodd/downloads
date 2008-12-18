@@ -17,7 +17,6 @@ spec = Gem::Specification.new do |spec|
   spec.requirements    << 'openssl'
   spec.requirements    << 'diff'
   spec.requirements    << 'rsync'
-  spec.requirements    << 'growlnotify'
 end
 
 Rake::GemReleaseTask.new(spec) do |task|

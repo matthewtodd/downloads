@@ -5,28 +5,28 @@ require 'tmail'
 
 class Downloads
   CONFIG_FILE = File.join(ENV['HOME'], '.downloads')
-  
+
   attr_reader :remote_host
   attr_reader :remote_directory
   attr_reader :local_directory
-  
+
   def initialize
     config = YAML.load_file(CONFIG_FILE)
-    
+
     @remote_host      = config['remote_host']
     @remote_directory = config['remote_directory']
     @local_directory  = config['local_directory']
   end
-  
+
   def check
     Tempfile.open('remote_md5s') do |remote|
       remote.write `ssh #{remote_host} 'cd #{remote_directory}; openssl md5 *'`
       remote.rewind
-      
+
       Tempfile.open('local_md5s') do |local|
         local.write `cd #{local_directory}; openssl md5 *`
         local.rewind
-        
+
         incomplete_files = `diff #{remote.path} #{local.path}`.scan(/^< MD5\((.+)\)= .*$/).flatten
 
         if incomplete_files.any?
@@ -37,11 +37,11 @@ class Downloads
       end
     end
   end
-  
+
   def clean
     exec 'ssh', remote_host, "cd #{remote_directory}; rm *"
   end
-  
+
   def extract_attachments(stream)
     TMail::Mail.parse(stream.read).attachments.each do |attachment|
       filename = File.join(remote_directory, attachment.original_filename)
@@ -49,27 +49,28 @@ class Downloads
       File.chmod(0644, filename)
     end
   end
-  
+
   def fetch(url, *options)
     exec 'ssh', remote_host, "cd #{remote_directory}; wget '#{url}' #{options.join(' ')}"
   end
-    
+
   def pending
-    exec 'ssh', remote_host, "ls -lh #{remote_directory} | ruby -n -e 'ls = $_.strip.split(/\s+/, 9); printf \"%4s %s\n\", ls[4], ls[8]' | tail +2"
+    exec 'ssh', remote_host, "ls -lh #{remote_directory}"
   end
-  
+
   def restart
     `killall rsync`
     exec 'rsync', '--recursive', '--partial', '--progress', "#{remote_host}:#{remote_directory}/", "#{local_directory}/"
   end
-  
+
   def stop
     `killall rsync`
   end
-  
+
   private
-  
+
   def notify(title, message='')
-    `growlnotify --sticky --title "#{title}" --message "#{message}"`
+    puts title
+    puts message
   end
 end
