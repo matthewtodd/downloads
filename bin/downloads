@@ -3,21 +3,21 @@
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'downloads'
 
-class CLI
+class CLI #:nodoc:
   def initialize
     @downloads = Downloads.new
   end
 
   def extract(message)
-    @downloads.extract_attachments(message)
+    @downloads.extract(message)
   end
 
   def fetch(*args)
     case args.first
     when nil
-      @downloads.start
+      @downloads.fetch_start
     when '--stop'
-      @downloads.stop
+      @downloads.fetch_stop
     else
       usage
     end
@@ -26,13 +26,13 @@ class CLI
   def queue(*args)
     case args.first
     when nil
-      @downloads.pending
+      @downloads.queue_list
     when '--check'
-      @downloads.check
+      @downloads.queue_check
     when '--clean'
-      @downloads.clean
+      @downloads.queue_clean
     else
-      @downloads.fetch(*args)
+      @downloads.queue_add(*args)
     end
   end
 
