@@ -28,13 +28,13 @@ class Downloads
   end
 
   def fetch_start
-    stop
+    fetch_stop
     pid = fork { exec 'rsync', '--recursive', '--partial', '--progress', "#{remote_host}:#{remote_directory}/", "#{local_directory}/" }
     File.open(PID_FILE, 'w') { |file| file.write(pid) }
     Process.wait
   rescue Interrupt
   ensure
-    File.delete(PID_FILE)
+    File.delete(PID_FILE) if File.exists?(PID_FILE)
   end
 
   def fetch_stop

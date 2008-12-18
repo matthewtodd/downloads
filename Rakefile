@@ -12,6 +12,7 @@ spec = Gem::Specification.new do |spec|
   spec.files            = FileList['*.rdoc', 'bin/*', 'lib/**/*.rb'].to_a
   spec.has_rdoc         = true
   spec.rdoc_options     = %W[--main README.rdoc --title #{spec.name}-#{spec.version} --inline-source --line-numbers]
+  spec.extra_rdoc_files = FileList['*.rdoc', 'bin/*'].to_a
   spec.executables      = ['downloads']
   spec.author           = 'Matthew Todd'
   spec.email            = 'matthew.todd@gmail.com'

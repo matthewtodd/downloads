@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.default_executable = %q{downloads}
   s.email = %q{matthew.todd@gmail.com}
   s.executables = ["downloads"]
+  s.extra_rdoc_files = ["README.rdoc", "TODO.rdoc", "bin/downloads"]
   s.files = ["README.rdoc", "TODO.rdoc", "bin/downloads", "lib/downloads.rb"]
   s.has_rdoc = true
   s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.3.0", "--inline-source", "--line-numbers"]
