@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rake/gemreleasetask'
 
-spec = Gem::Specification.new do |spec| 
+spec = Gem::Specification.new do |spec|
   spec.name             = 'downloads'
   spec.version          = '0.2.1'
   spec.summary          = 'Downloads uses ssh, rsync and tmail to reliably get big files into Tanzania.'
@@ -10,9 +10,9 @@ spec = Gem::Specification.new do |spec|
   spec.author           = 'Matthew Todd'
   spec.email            = 'matthew.todd@gmail.com'
   spec.homepage         = 'http://www.matthewtodd.org'
-  
+
   spec.add_dependency     'tmail', '>= 1.2.2'
-  
+
   spec.requirements    << 'ssh'
   spec.requirements    << 'openssl'
   spec.requirements    << 'diff'

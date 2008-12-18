@@ -8,11 +8,11 @@ class TMailTest < Test::Unit::TestCase
     @message = TMail::Mail.load(File.join(File.dirname(__FILE__), 'email_with_attachment.txt'))
     @attachments = @message.attachments
   end
-  
+
   def test_attachments_size
     assert_equal 1, @attachments.size
   end
-  
+
   def test_first_attachment_size
     assert_equal 12308, @attachments.first.size
   end
