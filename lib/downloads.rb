@@ -5,6 +5,7 @@ require 'tmail'
 
 class Downloads
   CONFIG_FILE = File.join(ENV['HOME'], '.downloads')
+  PID_FILE    = File.join(ENV['HOME'], '.downloads.pid')
 
   attr_reader :remote_host
   attr_reader :remote_directory
@@ -24,16 +25,9 @@ class Downloads
       remote.rewind
 
       Tempfile.open('local_md5s') do |local|
-        local.write `cd #{local_directory}; openssl md5 *`
+        local.write `cd #{local_directory}; [ \`ls\` ] && openssl md5 *`
         local.rewind
-
-        incomplete_files = `diff #{remote.path} #{local.path}`.scan(/^< MD5\((.+)\)= .*$/).flatten
-
-        if incomplete_files.any?
-          notify "These aren't finished downloading", incomplete_files.join("\n")
-        else
-          notify 'Downloads complete'
-        end
+        puts `diff #{remote.path} #{local.path}`.scan(/^< MD5\((.+)\)= .*$/).flatten
       end
     end
   end
@@ -59,18 +53,16 @@ class Downloads
   end
 
   def restart
-    `killall rsync`
-    exec 'rsync', '--recursive', '--partial', '--progress', "#{remote_host}:#{remote_directory}/", "#{local_directory}/"
+    stop
+    pid = fork { exec 'rsync', '--recursive', '--partial', '--progress', "#{remote_host}:#{remote_directory}/", "#{local_directory}/" }
+    File.open(PID_FILE, 'w') { |file| file.write(pid) }
+    Process.wait
+  rescue Interrupt
+  ensure
+    File.delete(PID_FILE)
   end
 
   def stop
-    `killall rsync`
-  end
-
-  private
-
-  def notify(title, message='')
-    puts title
-    puts message
+    `kill #{File.read(PID_FILE)}` if File.exists?(PID_FILE)
   end
 end

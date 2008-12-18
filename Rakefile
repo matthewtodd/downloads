@@ -34,4 +34,3 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.options    = spec.rdoc_options
   rdoc.rdoc_files = spec.files
 end
-
