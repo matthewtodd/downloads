@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby -w
-
-$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
-require 'downloads'
-
-warn "#{$0} is deprecated. Use 'downloads queue' instead."
-Downloads.new.pending

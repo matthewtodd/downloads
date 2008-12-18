@@ -10,8 +10,9 @@ Gem::Specification.new do |s|
   s.default_executable = %q{downloads}
   s.email = %q{matthew.todd@gmail.com}
   s.executables = ["downloads"]
-  s.files = ["README", "TODO", "bin/check_downloads", "bin/cleanup_downloads", "bin/download", "bin/downloads", "bin/extract_attachments", "bin/pending_downloads", "bin/restart_downloading", "bin/stop_downloading", "lib/downloads.rb"]
-  s.homepage = %q{http://www.matthewtodd.org}
+  s.files = ["README.rdoc", "TODO.rdoc", "bin/downloads", "lib/downloads.rb"]
+  s.has_rdoc = true
+  s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.2.99", "--inline-source", "--line-numbers"]
   s.require_paths = ["lib"]
   s.requirements = ["ssh", "openssl", "diff", "rsync"]
   s.rubygems_version = %q{1.3.1}
