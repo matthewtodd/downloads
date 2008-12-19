@@ -51,7 +51,7 @@ class Downloads
       remote.rewind
 
       Tempfile.open('local_md5s') do |local|
-        local.write `cd #{local_directory}; [ \`ls\` ] && openssl md5 *`
+        local.write `cd #{local_directory}; [ "\`ls\`" ] && openssl md5 *`
         local.rewind
         puts `diff #{remote.path} #{local.path}`.scan(/^< MD5\((.+)\)= .*$/).flatten
       end
