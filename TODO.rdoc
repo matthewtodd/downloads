@@ -1,1 +1,16 @@
+* FIXME old rsync jobs aren't being stopped on 'fetch --stop'
+
+* TODO new command vocabulary
+  * add
+  * mv                    # for remote renaming
+  * rm <filename>|--all   # MAYBE alternative to '--all' would be separate command, 'reset'
+  * sync
+  * kill                  # FIXME would like to find a better name for kill
+  * status                # would combine current 'queue' and 'queue --check'
+
+* TODO many commands could update a local cache of pending filenames, for speed & bash completion
+* TODO use ssh's control master to speed up re-connecting -- or Net::SSH? Capistrano?
+* TODO by convention, use 'downloads-server' alias in .ssh/config, ~/Desktop, and ~/downloads@ rather than looking for ~/.downloads? Or settings-logic?
+* TODO include AppleScripts for (1) NetNewsWire queue download of enclosure and (2) folder action queue download of .webloc
 * TODO forward original messages from attachment emails
+* TODO generalize pattern of executable supplying its own bash completion
