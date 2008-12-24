@@ -7,7 +7,7 @@ task :default => :test
 
 spec = Gem::Specification.new do |spec|
   spec.name             = 'downloads'
-  spec.version          = '0.3.2'
+  spec.version          = '0.3.3'
   spec.summary          = 'Downloads uses ssh, rsync and tmail to reliably get big files into Tanzania.'
   spec.files            = FileList['*.rdoc', 'bin/*', 'lib/**/*.rb'].to_a
   spec.has_rdoc         = true
