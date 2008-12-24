@@ -33,12 +33,14 @@ class Downloads
     File.open(PID_FILE, 'w') { |file| file.write(pid) }
     Process.wait
   rescue Interrupt
-  ensure
-    File.delete(PID_FILE) if File.exists?(PID_FILE)
+    # we don't need to see the stacktrace
   end
 
   def fetch_stop
-    `kill #{File.read(PID_FILE)}` if File.exists?(PID_FILE)
+    if File.exists?(PID_FILE)
+      `kill #{File.read(PID_FILE)}`
+      File.delete(PID_FILE)
+    end
   end
 
   def queue_add(url, *options)

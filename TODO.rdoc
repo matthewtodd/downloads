@@ -1,5 +1,3 @@
-* FIXME old rsync jobs aren't being stopped on 'fetch --stop'
-
 * TODO new command vocabulary
   * add
   * mv                    # for remote renaming
