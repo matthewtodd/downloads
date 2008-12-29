@@ -21,43 +21,22 @@ module Downloads
         files.detect { |file| file[:name] == filename }
       end
 
+      # TODO cache this list!
       def files
         @files ||= YAML.load(run(%{ruby -ryaml -e \\"puts Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }.to_yaml\\"}))
       end
-    end
-
-    class Local < Base
-      def initialize(directory)
-        @directory = directory
-      end
 
       def rsync_path
-        "#{@directory}/"
+        raise NotImplementedError
       end
 
       def run(command)
-        `sh -c "cd #{@directory}; #{command}"`
-      end
-    end
-
-    class Remote < Base
-      def initialize(host, directory)
-        @host, @directory = host, directory
-      end
-
-      def rsync_path
-        "#{@host}:#{@directory}/"
-      end
-
-      def run(command)
-        `ssh #{@host} "cd #{@directory}; #{command}"`
-      end
-    end
-
-    class Fake < Base
-      def run(command)
-        puts command
+        raise NotImplementedError
       end
     end
   end
 end
+
+require 'downloads/servers/fake'
+require 'downloads/servers/local'
+require 'downloads/servers/remote'

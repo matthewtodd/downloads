@@ -12,7 +12,7 @@ module Downloads
 
       def run
         TMail::Mail.parse(stream.read).attachments.each do |attachment|
-          filename = File.join(remote_directory, attachment.original_filename)
+          filename = File.join(local.directory, attachment.original_filename)
           File.open(filename, 'wb') { |file| file.write(attachment.read) }
           File.chmod(0644, filename)
         end
