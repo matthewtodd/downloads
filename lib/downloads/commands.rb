@@ -65,6 +65,7 @@ end
 
 require 'downloads/commands/add'
 require 'downloads/commands/attachments'
+require 'downloads/commands/complete'
 require 'downloads/commands/help'
 require 'downloads/commands/mv'
 require 'downloads/commands/rm'
