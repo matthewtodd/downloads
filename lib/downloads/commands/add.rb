@@ -6,7 +6,7 @@ module Downloads
       attr_accessor :uri, :filename
 
       def banner
-        "#{super} <url> [options]"
+        "#{super} <url> [-O FILENAME]"
       end
 
       def configure(argv)

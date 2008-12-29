@@ -7,6 +7,10 @@ module Downloads
         @directory = directory
       end
 
+      def files
+        Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }
+      end
+
       def rsync_path
         "#{@directory}/"
       end

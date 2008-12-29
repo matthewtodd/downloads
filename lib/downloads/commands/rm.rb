@@ -1,5 +1,6 @@
 module Downloads
   module Commands
+    # TODO support bash completion for filename
     class Rm < Base
       attr_accessor :filename
 

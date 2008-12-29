@@ -10,6 +10,7 @@ module Downloads
         self.stream = ARGF
       end
 
+      # TODO forward original messages from attachment emails
       def run
         TMail::Mail.parse(stream.read).attachments.each do |attachment|
           filename = File.join(local.directory, attachment.original_filename)

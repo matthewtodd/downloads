@@ -1,5 +1,6 @@
 module Downloads
   module Commands
+    # TODO support bash completion for source
     class Mv < Base
       attr_accessor :source, :target
 

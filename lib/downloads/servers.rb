@@ -2,7 +2,7 @@ require 'yaml'
 
 module Downloads
   module Servers
-    CONFIG_FILE = File.join(ENV['HOME'], '.downloads')
+    CONFIG_FILE = File.join(ENV['HOME'], '.downloads', 'config')
 
     def self.configuration
       @@configuration ||= YAML.load_file(CONFIG_FILE)
@@ -21,9 +21,8 @@ module Downloads
         files.detect { |file| file[:name] == filename }
       end
 
-      # TODO cache this list!
       def files
-        @files ||= YAML.load(run(%{ruby -ryaml -e \\"puts Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }.to_yaml\\"}))
+        raise NotImplementedError
       end
 
       def rsync_path
