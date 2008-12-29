@@ -8,7 +8,9 @@ module Downloads
       end
 
       def files
-        Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }
+        Dir.chdir(directory) do
+          Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }
+        end
       end
 
       def rsync_path
