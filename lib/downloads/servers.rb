@@ -24,10 +24,6 @@ module Downloads
       def files
         @files ||= YAML.load(run(%{ruby -ryaml -e \\"puts Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }.to_yaml\\"}))
       end
-
-      def run(command)
-        raise NotImplementedError
-      end
     end
 
     class Local < Base
@@ -35,14 +31,22 @@ module Downloads
         @directory = directory
       end
 
+      def rsync_path
+        "#{@directory}/"
+      end
+
       def run(command)
-        `sh -c "#{command}"`
+        `sh -c "cd #{@directory}; #{command}"`
       end
     end
 
     class Remote < Base
       def initialize(host, directory)
         @host, @directory = host, directory
+      end
+
+      def rsync_path
+        "#{@host}:#{@directory}/"
       end
 
       def run(command)

@@ -64,7 +64,9 @@ module Downloads
 end
 
 require 'downloads/commands/add'
+require 'downloads/commands/attachments'
 require 'downloads/commands/help'
 require 'downloads/commands/mv'
 require 'downloads/commands/rm'
 require 'downloads/commands/status'
+require 'downloads/commands/sync'

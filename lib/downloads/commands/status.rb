@@ -4,7 +4,7 @@ module Downloads
       def run
         longest_filename = remote.files.map { |file| file[:name] }.max { |a, b| a.length <=> b.length }
         remote.files.each do |file|
-          puts "%3d%%\t%-#{longest_filename.length}s\t%5s" % [status(file), file[:name], human_readable(file[:size])]
+          puts "%3s%%\t%-#{longest_filename.length}s\t%5s" % [status(file), file[:name], human_readable(file[:size])]
         end
       end
 
@@ -24,11 +24,15 @@ module Downloads
       end
 
       def percent(numerator, denominator)
-        (numerator.to_f * 100 / denominator).to_i
+        if denominator.zero? # oddly enough, this is happening for a .webloc file on my Destop right now
+          '-'
+        else
+          (numerator.to_f * 100 / denominator).to_i
+        end
       end
 
       def status(remote_file)
-        local_file = local.exists?(remote_file[:name]) || { :name => remote_file[:name], :size => 0 }
+        local_file = local.exists?(remote_file[:name]) || { :size => 0 }
         percent(local_file[:size], remote_file[:size])
       end
     end

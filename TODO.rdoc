@@ -1,7 +1,4 @@
 * TODO new command vocabulary
-  * sync
-  * kill                  # FIXME would like to find a better name for kill
-  * extract
   * complete
 
 * TODO many commands could update a local cache of pending filenames, for speed & bash completion
