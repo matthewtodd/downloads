@@ -1,6 +1,5 @@
 module Downloads
   module Commands
-    # MAYBE support bash completion for --kill
     class Sync < Base
       PID_FILE = File.join(ENV['HOME'], '.downloads', 'pid')
 

@@ -21,6 +21,7 @@ module Downloads
       end
 
       # TODO use ssh's control master to speed up re-connecting -- or Net::SSH? Capistrano?
+      # FIXME repopulate CACHE after running command
       def run(command)
         File.delete(CACHE) if File.exists?(CACHE)
         `ssh #{@host} "cd #{@directory}; #{command}"`

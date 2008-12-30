@@ -1,6 +1,5 @@
 module Downloads
   module Commands
-    # TODO support bash completion for filename
     class Rm < Base
       attr_accessor :filename
 
@@ -8,6 +7,7 @@ module Downloads
         "#{super} <filename>"
       end
 
+      # TODO support removing multiple files at once.
       def configure(argv)
         self.filename = shift_argument(argv)
       end
