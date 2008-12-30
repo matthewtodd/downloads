@@ -10,7 +10,7 @@ module Downloads
       end
 
       def configure(argv)
-        self.uri = URI.parse(shift_argument)
+        self.uri = URI.parse(shift_argument(argv))
 
         options.on('-O', '--output-document FILENAME', 'Save download as FILENAME') do |filename|
           self.filename = filename
@@ -19,9 +19,9 @@ module Downloads
 
       def run
         if filename
-          remote.run("wget '#{uri}' -O '#{filename}'")
+          remote.run("wget '#{uri}' --no-check-certificate -O '#{filename}'")
         else
-          remote.run("wget '#{uri}'")
+          remote.run("wget '#{uri}' --no-check-certificate")
         end
       end
 
