@@ -1,4 +1,8 @@
 == Bash Completion
-In your .profile, or wherever you prefer:
 
-  complete -o default -C 'downloads complete' downloads
+Downloads supplies pre-packaged definitions for Dr. Nic's
+tabtab[http://github.com/drnic/tabtab] gem. After installing, simply run
+
+  install_tabtab
+
+to update your configuration, which you should only need to do once.
