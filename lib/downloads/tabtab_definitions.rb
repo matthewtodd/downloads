@@ -1,10 +1,15 @@
 TabTab::Definition.register('downloads') do |c|
+  def clipboard_contents
+    [`pbpaste`.strip]
+  end
+
   def remote_files
     `downloads ls`.split("\n")
   end
 
   c.command(:add) do |add|
     add.flag :help
+    add.default { clipboard_contents }
   end
 
   c.command(:help) do |help|
