@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email = %q{matthew.todd@gmail.com}
   s.executables = ["downloads"]
   s.extra_rdoc_files = ["README.rdoc", "TODO.rdoc", "bin/downloads"]
-  s.files = ["README.rdoc", "TODO.rdoc", "bin/downloads", "lib/downloads/commands/add.rb", "lib/downloads/commands/attachments.rb", "lib/downloads/commands/help.rb", "lib/downloads/commands/ls.rb", "lib/downloads/commands/mv.rb", "lib/downloads/commands/rm.rb", "lib/downloads/commands/status.rb", "lib/downloads/commands/sync.rb", "lib/downloads/commands.rb", "lib/downloads/servers/fake.rb", "lib/downloads/servers/local.rb", "lib/downloads/servers/remote.rb", "lib/downloads/servers.rb", "lib/downloads/tabtab_definitions.rb", "lib/downloads.rb"]
+  s.files = ["README.rdoc", "TODO.rdoc", "bin/downloads", "lib/downloads/commands/add.rb", "lib/downloads/commands/attachments.rb", "lib/downloads/commands/help.rb", "lib/downloads/commands/ls.rb", "lib/downloads/commands/mv.rb", "lib/downloads/commands/rm.rb", "lib/downloads/commands/status.rb", "lib/downloads/commands/sync.rb", "lib/downloads/commands.rb", "lib/downloads/servers/fake.rb", "lib/downloads/servers/local.rb", "lib/downloads/servers/remote.rb", "lib/downloads/servers.rb", "lib/downloads/tabtab_definitions.rb", "lib/downloads.rb", "resources/applescripts", "resources/applescripts/folderaction_download_webloc.scpt", "resources/applescripts/netnewswire_download_enclosure.scpt"]
   s.has_rdoc = true
   s.post_install_message = %q{== Bash Completion
 
