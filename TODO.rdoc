@@ -1,2 +1,2 @@
 * TODO include AppleScripts for (1) NetNewsWire queue download of enclosure and (2) folder action queue download of .webloc
-* TODO a config command?
+* MAYBE a config command?
