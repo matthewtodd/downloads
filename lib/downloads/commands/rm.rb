@@ -1,23 +1,25 @@
 module Downloads
   module Commands
     class Rm < Base
-      attr_accessor :filename
+      attr_accessor :filenames
 
       def banner
         "#{super} <filename>"
       end
 
-      # TODO support removing multiple files at once.
       def configure(argv)
-        self.filename = shift_argument(argv)
+        self.filenames = []
+        while filename = shift_argument(argv)
+          self.filenames << filename
+        end
       end
 
       def run
-        remote.run("rm '#{filename}'")
+        remote.run("rm '#{filenames.join("' '")}'")
       end
 
       def valid?
-        filename
+        filenames.any?
       end
     end
   end
