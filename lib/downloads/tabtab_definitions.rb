@@ -19,8 +19,8 @@ TabTab::Definition.register('downloads') do |c|
     mv.default { remote_files }
   end
 
+  # TODO support completion for multiple filenames, once rm can handle them
   c.command(:rm) do |rm|
-    # TODO support completion for multiple filenames, once rm can handle them
     rm.flag :help
     rm.default { remote_files }
   end

@@ -8,7 +8,7 @@ task :default => :test
 spec = Gem::Specification.new do |spec|
   spec.name             = 'downloads'
   spec.version          = '0.4.2'
-  spec.summary          = 'Downloads uses ssh, rsync and tmail to reliably get big files into Tanzania.'
+  spec.summary          = 'Downloads uses net-ssh, rsync and tmail to reliably get big files into Tanzania.'
   spec.files            = FileList['*.rdoc', 'bin/*', 'lib/**/*.rb'].to_a
   spec.has_rdoc         = true
   spec.rdoc_options     = %W[--main README.rdoc --title #{spec.name}-#{spec.version} --inline-source --line-numbers]
@@ -19,8 +19,7 @@ spec = Gem::Specification.new do |spec|
   spec.post_install_message = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 
   spec.add_dependency     'tmail', '>= 1.2.2'
-
-  spec.requirements    << 'ssh'
+  spec.add_dependency     'net-ssh', '>= 2.0.3'
   spec.requirements    << 'rsync'
 end
 

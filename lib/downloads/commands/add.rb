@@ -3,26 +3,18 @@ require 'uri'
 module Downloads
   module Commands
     class Add < Base
-      attr_accessor :uri, :filename
+      attr_accessor :uri
 
       def banner
-        "#{super} <url> [--output-document FILENAME]"
+        "#{super} <url>"
       end
 
       def configure(argv)
         self.uri = URI.parse(shift_argument(argv))
-
-        options.on('-O', '--output-document FILENAME', 'Save download as FILENAME') do |filename|
-          self.filename = filename
-        end
       end
 
       def run
-        if filename
-          remote.run("wget '#{uri}' --no-check-certificate -O '#{filename}'")
-        else
-          remote.run("wget '#{uri}' --no-check-certificate")
-        end
+        remote.run("wget '#{uri}' --no-check-certificate")
       end
 
       def valid?

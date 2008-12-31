@@ -1,18 +1,16 @@
+require 'net/ssh'
+
 module Downloads
   module Servers
     class Remote < Base
       CACHE = File.join(ENV['HOME'], '.downloads', 'remote_cache')
 
       def initialize(host, directory)
-        @host, @directory = host, directory
+        @host, @directory, @connection = host, directory, nil
       end
 
       def files
-        unless File.exists?(CACHE)
-          yaml = run(%{ruby -ryaml -e \\"y Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }\\"})
-          File.open(CACHE, 'w') { |file| file.write yaml }
-        end
-
+        update_file_cache unless File.exists?(CACHE)
         YAML.load_file(CACHE)
       end
 
@@ -20,11 +18,30 @@ module Downloads
         "#{@host}:#{@directory}/"
       end
 
-      # TODO use ssh's control master to speed up re-connecting -- or Net::SSH? Capistrano?
-      # FIXME repopulate CACHE after running command
       def run(command)
-        File.delete(CACHE) if File.exists?(CACHE)
-        `ssh #{@host} "cd #{@directory}; #{command}"`
+        result = run_in_directory(command)
+        update_file_cache
+        result
+      end
+
+      private
+
+      def connection
+        unless @connection
+          @connection = Net::SSH.start(@host, ENV['USER'])
+          at_exit { @connection.close }
+        end
+
+        @connection
+      end
+
+      def run_in_directory(command)
+        connection.exec!("cd #{@directory}; #{command}")
+      end
+
+      def update_file_cache
+        yaml = run_in_directory(%{ruby -ryaml -e "puts Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }.to_yaml"})
+        File.open(CACHE, 'w') { |file| file.write(yaml) }
       end
     end
   end
