@@ -5,14 +5,12 @@ module Downloads
 
       attr_accessor :kill
 
-      def banner
-        "#{super} [--kill]"
+      def self.usage
+        "#{super} [kill]"
       end
 
       def configure(argv)
-        options.on('-k', '--kill', 'Stop any in-progress syncing') do
-          self.kill = true
-        end
+        self.kill = (shift_argument(argv) == 'kill')
       end
 
       def run

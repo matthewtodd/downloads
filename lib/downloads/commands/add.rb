@@ -5,8 +5,8 @@ module Downloads
     class Add < Base
       attr_accessor :uris
 
-      def banner
-        "#{super} <url> [url...]"
+      def self.usage
+        "#{super} URL ..."
       end
 
       def configure(argv)

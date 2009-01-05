@@ -3,8 +3,8 @@ module Downloads
     class Mv < Base
       attr_accessor :source, :target
 
-      def banner
-        "#{super} <source> <target>"
+      def self.usage
+        "#{super} SOURCE TARGET"
       end
 
       def configure(argv)

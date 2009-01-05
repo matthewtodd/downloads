@@ -1,9 +1,15 @@
-require 'optparse'
-
 module Downloads
   module Commands
     def self.registry
       @@registry ||= {}
+    end
+
+    def self.names
+      registry.keys.sort
+    end
+
+    def self.objects
+      registry.values.sort_by { |command| command.command_name }
     end
 
     # MAYBE we could use optparse at this top level as well, allowing for (1) overriding host & directory config and (2) faking remote interactions
@@ -17,6 +23,10 @@ module Downloads
         name.split('::').last.downcase
       end
 
+      def self.usage
+        command_name
+      end
+
       def self.inherited(command)
         Commands.registry[command.command_name] = command
       end
@@ -25,25 +35,16 @@ module Downloads
 
       def initialize(local, remote, argv)
         @local, @remote = local, remote
-        @options = OptionParser.new
-        @options.banner = banner
         configure(argv)
-        @options.parse!(argv)
-        help unless valid?
-      rescue OptionParser::InvalidOption, URI::InvalidURIError => e
+      rescue URI::InvalidURIError => e
         puts e.message
-        help
-      end
-
-      def banner
-        "Usage: downloads #{self.class.command_name}"
       end
 
       def configure(argv)
       end
 
-      def help
-        puts @options.help
+      def usage
+        self.class.usage
       end
 
       def run

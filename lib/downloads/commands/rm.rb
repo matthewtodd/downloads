@@ -3,8 +3,8 @@ module Downloads
     class Rm < Base
       attr_accessor :filenames
 
-      def banner
-        "#{super} <filename>"
+      def self.usage
+        "#{super} FILE ..."
       end
 
       def configure(argv)
