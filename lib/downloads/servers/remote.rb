@@ -40,7 +40,7 @@ module Downloads
       end
 
       def update_file_cache
-        yaml = run_in_directory(%{ruby -ryaml -e "puts Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }.to_yaml"})
+        yaml = run_in_directory(%{ruby -ryaml -e "puts Dir.glob('*').sort.map { |name| { :name => name, :size => File.size(name) } }.to_yaml"})
         File.open(CACHE, 'w') { |file| file.write(yaml) }
       end
     end
