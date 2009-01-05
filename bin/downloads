@@ -3,4 +3,5 @@
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'downloads'
 
-Downloads::Commands.lookup(ARGV).run
+command = Downloads::Commands.lookup(ARGV)
+command.run if command.valid?

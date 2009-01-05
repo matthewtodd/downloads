@@ -9,11 +9,11 @@ module Downloads
     end
 
     def self.local
-      Local.new(configuration['local_directory'])
+      @@local ||= Local.new(configuration['local_directory'])
     end
 
     def self.remote
-      Remote.new(configuration['remote_host'], configuration['remote_directory'])
+      @@remote ||= Remote.new(configuration['remote_host'], configuration['remote_directory'])
     end
 
     class Base

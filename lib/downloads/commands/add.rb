@@ -11,8 +11,8 @@ module Downloads
 
       def configure(argv)
         self.uris = []
-        while uri = URI.parse(shift_argument(argv))
-          self.uris << uri
+        while uri = shift_argument(argv)
+          self.uris << URI.parse(uri)
         end
       end
 
@@ -21,7 +21,7 @@ module Downloads
       end
 
       def valid?
-        uri
+        uris.any?
       end
     end
   end

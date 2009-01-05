@@ -30,7 +30,8 @@ module Downloads
         configure(argv)
         @options.parse!(argv)
         help unless valid?
-      rescue OptionParser::InvalidOption, URI::InvalidURIError
+      rescue OptionParser::InvalidOption, URI::InvalidURIError => e
+        puts e.message
         help
       end
 
@@ -43,7 +44,6 @@ module Downloads
 
       def help
         puts @options.help
-        exit 1
       end
 
       def run
@@ -68,6 +68,8 @@ require 'downloads/commands/attachments'
 require 'downloads/commands/help'
 require 'downloads/commands/ls'
 require 'downloads/commands/mv'
+require 'downloads/commands/quit'
 require 'downloads/commands/rm'
+require 'downloads/commands/shell'
 require 'downloads/commands/status'
 require 'downloads/commands/sync'
