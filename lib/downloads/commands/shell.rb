@@ -20,9 +20,15 @@ module Downloads
         puts 'Type ctrl-d or quit to exit.'
 
         loop do
-          line = Readline::readline('> ')
-          command = Downloads::Commands.lookup(line ? line.split(' ') : ['quit'])
-          command.run if command.valid?
+          line = Readline::readline('> ') || 'quit'
+          next if line.strip == ''
+          Readline::HISTORY.push(line)
+          command = Downloads::Commands.lookup(line.split(' '))
+          if command.valid?
+            command.run
+          else
+            puts command.usage
+          end
         end
       end
     end
