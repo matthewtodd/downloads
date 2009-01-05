@@ -7,6 +7,7 @@ TabTab::Definition.register('downloads') do |c|
     `downloads ls`.split("\n")
   end
 
+  # FIXME waiting for tabtab to support completion for multiple filenames
   c.command(:add) do |add|
     add.flag :help
     add.default { clipboard_contents }
