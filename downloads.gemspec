@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{downloads}
-  s.version = "0.6.0"
+  s.version = "0.6.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matthew Todd"]
@@ -22,7 +22,7 @@ tabtab[http://github.com/drnic/tabtab] gem. After installing, simply run
 
 to update your configuration, which you should only need to do once.
 }
-  s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.6.0", "--inline-source", "--line-numbers"]
+  s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.6.1", "--inline-source", "--line-numbers"]
   s.require_paths = ["lib"]
   s.requirements = ["rsync"]
   s.rubygems_version = %q{1.3.1}

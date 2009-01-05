@@ -1,4 +1,4 @@
-require 'tabtab'
+require 'tabtab' unless Object.const_defined?(:TabTab)
 require File.join(File.dirname(__FILE__), '..', 'tabtab_definitions')
 require 'readline'
 require 'shellwords'
