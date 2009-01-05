@@ -4,7 +4,7 @@ module Downloads
       def run
         longest_filename = remote.files.map { |file| file[:name] }.max { |a, b| a.length <=> b.length }
         remote.files.each do |file|
-          puts "%3s%%\t%-#{longest_filename.length}s\t%5s" % [status(file), file[:name], human_readable(file[:size])]
+          puts "%-#{longest_filename.length}s\t%3s%%\t%5s" % [file[:name], status(file), human_readable(file[:size])]
         end
       end
 

@@ -18,8 +18,9 @@ spec = Gem::Specification.new do |spec|
   spec.email            = 'matthew.todd@gmail.com'
   spec.post_install_message = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 
-  spec.add_dependency     'tmail', '>= 1.2.2'
   spec.add_dependency     'net-ssh', '>= 2.0.3'
+  spec.add_dependency     'tabtab', '>= 0.9.1'
+  spec.add_dependency     'tmail', '>= 1.2.2'
   spec.requirements    << 'rsync'
 end
 

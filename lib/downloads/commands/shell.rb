@@ -7,7 +7,7 @@ module Downloads
   module Commands
     class Shell < Base
       def run
-        Readline.completer_word_break_characters = "\t"
+        Readline.completer_word_break_characters = ''
         Readline.completion_append_character = ' '
         Readline.completion_proc = lambda do |line|
           words = Shellwords.shellwords("downloads #{line}")
