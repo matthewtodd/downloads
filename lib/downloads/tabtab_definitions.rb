@@ -4,7 +4,10 @@ TabTab::Definition.register('downloads') do |c|
   end
 
   def commands
-    require File.join(File.dirname(__FILE__), 'commands') unless Object.const_defined?(:Downloads)
+    unless unless Object.const_defined?(:Downloads)
+      require File.join(File.dirname(__FILE__), 'commands')
+    end
+
     Downloads::Commands.names
   end
 
