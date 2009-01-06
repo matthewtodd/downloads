@@ -2,13 +2,26 @@ module Downloads
   module Commands
     class Status < Base
       def run
-        longest_filename = remote.files.map { |file| file[:name] }.max { |a, b| a.length <=> b.length }
+        longest_filename = remote.filenames.max { |a, b| a.length <=> b.length }
         remote.files.each do |file|
           puts "%-#{longest_filename.length}s\t%3s%%\t%5s" % [file[:name], status(file), human_readable(file[:size])]
         end
       end
 
       private
+
+      def status(remote_file)
+        local_file = local.exists?(remote_file[:name]) || { :size => 0 }
+        percent(local_file[:size], remote_file[:size])
+      end
+
+      def percent(numerator, denominator)
+        if denominator.zero? # oddly enough, this is happening for a .webloc file on my Desktop right now
+          '-'
+        else
+          (numerator.to_f * 100 / denominator).to_i
+        end
+      end
 
       def human_readable(bytes)
         case bytes
@@ -21,19 +34,6 @@ module Downloads
         else
           "#{bytes/1024**3}G"
         end
-      end
-
-      def percent(numerator, denominator)
-        if denominator.zero? # oddly enough, this is happening for a .webloc file on my Destop right now
-          '-'
-        else
-          (numerator.to_f * 100 / denominator).to_i
-        end
-      end
-
-      def status(remote_file)
-        local_file = local.exists?(remote_file[:name]) || { :size => 0 }
-        percent(local_file[:size], remote_file[:size])
       end
     end
   end
