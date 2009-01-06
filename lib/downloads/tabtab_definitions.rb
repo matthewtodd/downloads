@@ -18,6 +18,9 @@ TabTab::Definition.register('downloads') do |c|
     add.default { clipboard_contents.grep(/^http:/) }
   end
 
+  c.command(:config) do |config|
+  end
+
   c.command(:help) do |help|
     help.default { commands }
   end

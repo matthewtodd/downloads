@@ -1,27 +1,47 @@
+require 'pathname'
 require 'yaml'
 
 module Downloads
   class Configuration
-    CONFIG_FILE       = File.join(ENV['HOME'], '.downloads', 'config')
-    PID_FILE          = File.join(ENV['HOME'], '.downloads', 'pid')
-    REMOTE_CACHE_FILE = File.join(ENV['HOME'], '.downloads', 'remote_cache')
+    DIRECTORY = Pathname.new(File.join(ENV['HOME'], '.downloads'))
+    DEFAULTS = { 'remote_host' => 'downloads', 'remote_directory' => 'downloads', 'local_directory' => File.join(ENV['HOME'], 'Desktop') }.freeze
 
-    # TODO discard direct property access
+    def initialize
+      DIRECTORY.mkdir unless DIRECTORY.directory?
+
+      @values = DEFAULTS.dup
+      @values.merge!(YAML.load_file(path('config'))) if path('config').file?
+    end
+
     def [](key)
-      @configuration ||= YAML.load_file(CONFIG_FILE)
-      @configuration[key]
+      @values[key.to_s]
+    end
+
+    def []=(key, value)
+      @values[key.to_s] = value
+      File.open(path('config'), 'w') { |file| file.write(to_yaml) }
     end
 
     def local_server
-      @local ||= Servers::Local.new(self['local_directory'])
+      @local ||= Servers::Local.new(@values['local_directory'])
     end
 
     def remote_server
-      @remote ||= Servers::Remote.new(self['remote_host'], self['remote_directory'], REMOTE_CACHE_FILE)
+      @remote ||= Servers::Remote.new(@values['remote_host'], @values['remote_directory'], path('remote_cache'))
     end
 
     def pid_file
-      PID_FILE
+      path('pid')
+    end
+
+    def to_yaml
+      @values.to_yaml
+    end
+
+    private
+
+    def path(path)
+      DIRECTORY + path
     end
   end
 end
