@@ -16,11 +16,11 @@ spec = Gem::Specification.new do |spec|
   spec.executables      = ['downloads']
   spec.author           = 'Matthew Todd'
   spec.email            = 'matthew.todd@gmail.com'
-  spec.post_install_message = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 
   spec.add_dependency     'net-ssh', '>= 2.0.3'
   spec.add_dependency     'tabtab', '>= 0.9.1'
   spec.add_dependency     'tmail', '>= 1.2.2'
+
   spec.requirements    << 'rsync'
 end
 
@@ -35,7 +35,7 @@ desc 'Generate documentation for the downloads gem.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'docs'
   rdoc.options    = spec.rdoc_options
-  rdoc.rdoc_files = spec.files
+  rdoc.rdoc_files = spec.files.reject { |path| path =~ /resources/ }.reject { |path| path =~ /TODO.rdoc/ && File.read(path).strip.empty? }
 end
 
 desc 'Test the downloads gem.'

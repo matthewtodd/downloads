@@ -1,3 +1,29 @@
+Downloads helps me get big files into Tanzania. It's been fun to write! Maybe you'll be able to make use of it, too.
+
+== Overview
+
+Since http downloads can be a little flaky over a slow connection, we take this basic approach:
+
+1. Ssh to a server with a fast connection and download the file to a special directory there.
+2. Later, rsync down the contents of that directory.
+
+Beyond that, it's all polish. There's a nice interactive shell, smart (non-)use of the network, and good tab completion all around.
+
+== Sample Workflow
+
+  $ downloads add http://media.railscasts.com/videos/143_paypal_security.mov
+  $ downloads sync
+  receiving incremental file list
+  143_paypal_security.mov
+        229376   0%    7.86kB/s    0:50:27
+  ...
+  $ downloads rm 143_paypal_security.mov
+  $
+
+== Installation
+
+  sudo gem install matthewtodd-downloads --source http://gems.github.com
+
 == Configuration
 
 You can see your current configuration via the "config" command:
@@ -8,12 +34,33 @@ To update these parameters, pass the key and the new value like so:
 
   downloads config remote_host downloads.example.com
 
-== Bash Completion
+== Commands
 
-Downloads supplies pre-packaged definitions for Dr. Nic's tabtab gem,
-http://github.com/drnic/tabtab.
+  $ downloads help
+  add URL ...
+  attachments
+  config [KEY [VALUE]]
+  help [COMMAND]
+  ls
+  mv SOURCE TARGET
+  quit
+  rm FILE ...
+  shell
+  status
+  sync [kill]
 
-To get yummy bash completion goodness for downloads, just run:
+== Tips
 
-  install_tabtab
+1. <tt>downloads shell</tt> re-uses the same ssh connection through your entire session, <b>saving the re-connection overhead</b> for every remote command.
 
+2. <b>Tab completion</b> is available for free in <tt>downloads shell</tt>. You can also get it at the command line thanks to Dr. Nic's excellent TabTab gem, http://github.com/drnic/tabtab/tree/REL-0.9.1/PostInstall.txt.
+
+3. I use the following <b>cron jobs</b> to <b>sync my downloads overnight</b>. (Restarting <tt>sync</tt> every half hour helps recover from dropped connections.)
+     */30 0-5,22-23 * * * downloads sync
+     30   6         * * * downloads sync kill
+
+4. I like to set up a <b>GeekTool window</b> showing the results of <tt>downloads status</tt>. If you like, you can bottom-justify this text by piping it through http://gist.github.com/43363.
+
+5. Install Downloads on your mail server, and you can set up a special email address, say <tt>big.files@downloads.example.com</tt>, that pipes all its messages through <tt>downloads attachments</tt>. Currently, the messages will be dropped on the floor, but <b>any attachments will be dropped into your downloads folder</b>, ready to be sync'ed down.
+
+6. I've been noodling with some <b>applescripts</b>. Check out the <tt>resources</tt> folder.

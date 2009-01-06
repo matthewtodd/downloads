@@ -1,4 +1,4 @@
-module Downloads
+module Downloads #:nodoc:
   module Commands
     def self.configuration
       @@configuration ||= Configuration.new

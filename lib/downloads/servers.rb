@@ -1,5 +1,5 @@
 module Downloads
-  module Servers
+  module Servers #:nodoc:
     class Base
       def exists?(filename)
         filenames.include?(filename)
