@@ -2,27 +2,38 @@
 
 Gem::Specification.new do |s|
   s.name = %q{downloads}
-  s.version = "0.6.1"
+  s.version = "0.6.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matthew Todd"]
-  s.date = %q{2009-01-05}
+  s.date = %q{2009-01-06}
   s.default_executable = %q{downloads}
   s.email = %q{matthew.todd@gmail.com}
   s.executables = ["downloads"]
   s.extra_rdoc_files = ["README.rdoc", "TODO.rdoc", "bin/downloads"]
-  s.files = ["README.rdoc", "TODO.rdoc", "bin/downloads", "lib/downloads/commands/add.rb", "lib/downloads/commands/attachments.rb", "lib/downloads/commands/help.rb", "lib/downloads/commands/ls.rb", "lib/downloads/commands/mv.rb", "lib/downloads/commands/quit.rb", "lib/downloads/commands/rm.rb", "lib/downloads/commands/shell.rb", "lib/downloads/commands/status.rb", "lib/downloads/commands/sync.rb", "lib/downloads/commands.rb", "lib/downloads/servers/fake.rb", "lib/downloads/servers/local.rb", "lib/downloads/servers/remote.rb", "lib/downloads/servers.rb", "lib/downloads/tabtab_definitions.rb", "lib/downloads.rb", "resources/applescripts", "resources/applescripts/Add Downloads.app", "resources/applescripts/folderaction_download_webloc.scpt", "resources/applescripts/netnewswire_download_enclosure.scpt"]
+  s.files = ["README.rdoc", "TODO.rdoc", "bin/downloads", "lib/downloads/commands/add.rb", "lib/downloads/commands/attachments.rb", "lib/downloads/commands/config.rb", "lib/downloads/commands/help.rb", "lib/downloads/commands/ls.rb", "lib/downloads/commands/mv.rb", "lib/downloads/commands/quit.rb", "lib/downloads/commands/rm.rb", "lib/downloads/commands/shell.rb", "lib/downloads/commands/status.rb", "lib/downloads/commands/sync.rb", "lib/downloads/commands.rb", "lib/downloads/configuration.rb", "lib/downloads/servers/local.rb", "lib/downloads/servers/remote.rb", "lib/downloads/servers.rb", "lib/downloads/tabtab_definitions.rb", "lib/downloads.rb", "resources/applescripts", "resources/applescripts/Add Downloads.app", "resources/applescripts/folderaction_download_webloc.scpt", "resources/applescripts/netnewswire_download_enclosure.scpt"]
   s.has_rdoc = true
-  s.post_install_message = %q{== Bash Completion
+  s.post_install_message = %q{== Configuration
 
-Downloads supplies pre-packaged definitions for Dr. Nic's
-tabtab[http://github.com/drnic/tabtab] gem. After installing, simply run
+You can see your current configuration via the "config" command:
+
+  downloads config
+
+To update these parameters, pass the key and the new value like so:
+
+  downloads config remote_host downloads.example.com
+
+== Bash Completion
+
+Downloads supplies pre-packaged definitions for Dr. Nic's tabtab gem,
+http://github.com/drnic/tabtab.
+
+To get yummy bash completion goodness for downloads, just run:
 
   install_tabtab
 
-to update your configuration, which you should only need to do once.
 }
-  s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.6.1", "--inline-source", "--line-numbers"]
+  s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.6.2", "--inline-source", "--line-numbers"]
   s.require_paths = ["lib"]
   s.requirements = ["rsync"]
   s.rubygems_version = %q{1.3.1}

@@ -1,8 +1,19 @@
+== Configuration
+
+You can see your current configuration via the "config" command:
+
+  downloads config
+
+To update these parameters, pass the key and the new value like so:
+
+  downloads config remote_host downloads.example.com
+
 == Bash Completion
 
-Downloads supplies pre-packaged definitions for Dr. Nic's
-tabtab[http://github.com/drnic/tabtab] gem. After installing, simply run
+Downloads supplies pre-packaged definitions for Dr. Nic's tabtab gem,
+http://github.com/drnic/tabtab.
+
+To get yummy bash completion goodness for downloads, just run:
 
   install_tabtab
 
-to update your configuration, which you should only need to do once.
