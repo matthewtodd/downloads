@@ -3,15 +3,14 @@ require 'net/ssh'
 module Downloads
   module Servers
     class Remote < Base
-      CACHE = File.join(ENV['HOME'], '.downloads', 'remote_cache')
-
       def initialize(host, directory)
         @host, @directory, @connection = host, directory, nil
       end
 
+      # FIXME is it weird to inject host & directory, but look up remote_cache_file?
       def files
-        update_file_cache unless File.exists?(CACHE)
-        YAML.load_file(CACHE)
+        update_file_cache unless File.exists?(Configuration.remote_cache_file)
+        YAML.load_file(Configuration.remote_cache_file)
       end
 
       def rsync_path
@@ -41,7 +40,7 @@ module Downloads
 
       def update_file_cache
         yaml = run_in_directory(%{ruby -ryaml -e "puts Dir.glob('*').sort.map { |name| { :name => name, :size => File.size(name) } }.to_yaml"})
-        File.open(CACHE, 'w') { |file| file.write(yaml) }
+        File.open(Configuration.remote_cache_file, 'w') { |file| file.write(yaml) }
       end
     end
   end
