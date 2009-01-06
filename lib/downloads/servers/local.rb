@@ -9,7 +9,7 @@ module Downloads
 
       def files
         Dir.chdir(directory) do
-          Dir.glob('*').map { |name| { :name => name, :size => File.size(name) } }
+          Dir.glob('*').sort.map { |name| { :name => name, :size => File.size(name) } }
         end
       end
 
