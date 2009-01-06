@@ -1,5 +1,9 @@
 module Downloads
   module Commands
+    def self.configuration
+      @@configuration ||= Configuration.new
+    end
+
     def self.registry
       @@registry ||= {}
     end
@@ -15,7 +19,7 @@ module Downloads
     # MAYBE we could use optparse at this top level as well, allowing for (1) overriding host & directory config and (2) faking remote interactions
     def self.lookup(argv)
       klass = registry[argv.shift] || Help
-      klass.new(Configuration.local_server, Configuration.remote_server, argv)
+      klass.new(configuration, argv)
     end
 
     class Base
@@ -31,10 +35,12 @@ module Downloads
         Commands.registry[command.command_name] = command
       end
 
-      attr_reader :local, :remote, :options
+      attr_reader :configuration, :local, :remote, :options
 
-      def initialize(local, remote, argv)
-        @local, @remote = local, remote
+      def initialize(configuration, argv)
+        @configuration = configuration
+        @local         = configuration.local_server
+        @remote        = configuration.remote_server
         configure(argv)
       end
 

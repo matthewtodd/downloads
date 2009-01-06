@@ -12,14 +12,14 @@ module Downloads
       end
 
       def run
-        if File.exists?(Configuration.pid_file)
-          `kill #{File.read(Configuration.pid_file)}`
-          File.delete(Configuration.pid_file)
+        if File.exists?(pid_file)
+          `kill #{File.read(pid_file)}`
+          File.delete(pid_file)
         end
 
         unless kill
           pid = fork { exec("rsync --recursive --progress --partial #{remote.rsync_path} #{local.rsync_path}") }
-          File.open(Configuration.pid_file, 'w') { |file| file.write(pid) }
+          File.open(pid_file, 'w') { |file| file.write(pid) }
 
           begin
             Process.wait
@@ -28,6 +28,12 @@ module Downloads
             puts # but a blank line is nice
           end
         end
+      end
+
+      private
+
+      def pid_file
+        configuration.pid_file
       end
     end
   end
