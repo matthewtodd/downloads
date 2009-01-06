@@ -4,12 +4,12 @@ TabTab::Definition.register('downloads') do |c|
   end
 
   def commands
-    require File.join(File.dirname(__FILE__), 'commands') unless Object.const_defined?(:Downloads)
+    require File.join(File.dirname(__FILE__), '..', 'downloads') unless Object.const_defined?(:Downloads)
     Downloads::Commands.names
   end
 
   def remote_files
-    require File.join(File.dirname(__FILE__), 'commands') unless Object.const_defined?(:Downloads)
+    require File.join(File.dirname(__FILE__), '..', 'downloads') unless Object.const_defined?(:Downloads)
     Downloads::Commands.configuration.remote_server.filenames
   end
 
