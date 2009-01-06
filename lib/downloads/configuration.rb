@@ -6,11 +6,16 @@ module Downloads
     DIRECTORY = Pathname.new(File.join(ENV['HOME'], '.downloads'))
     DEFAULTS = { 'remote_host' => 'downloads', 'remote_directory' => 'downloads', 'local_directory' => File.join(ENV['HOME'], 'Desktop') }.freeze
 
+    attr_reader :local_server, :remote_server
+
     def initialize
       DIRECTORY.mkdir unless DIRECTORY.directory?
 
       @values = DEFAULTS.dup
       @values.merge!(YAML.load_file(path('config'))) if path('config').file?
+
+      @local_server  = build_local_server
+      @remote_server = build_remote_server
     end
 
     def [](key)
@@ -20,14 +25,14 @@ module Downloads
     def []=(key, value)
       @values[key.to_s] = value
       File.open(path('config'), 'w') { |file| file.puts(to_yaml) }
-    end
 
-    def local_server
-      @local ||= Servers::Local.new(@values['local_directory'])
-    end
-
-    def remote_server
-      @remote ||= Servers::Remote.new(@values['remote_host'], @values['remote_directory'], path('remote_cache'))
+      case key.to_s
+      when /^remote/
+        File.delete(path('remote_cache'))
+        @remote_server = build_remote_server
+      when /^local/
+        @local_server = build_local_server
+      end
     end
 
     def pid_file
@@ -40,6 +45,14 @@ module Downloads
     end
 
     private
+
+    def build_local_server
+      Servers::Local.new(@values['local_directory'])
+    end
+
+    def build_remote_server
+      Servers::Remote.new(@values['remote_host'], @values['remote_directory'], path('remote_cache'))
+    end
 
     def path(path)
       DIRECTORY + path

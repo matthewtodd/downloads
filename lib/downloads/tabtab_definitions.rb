@@ -19,6 +19,9 @@ TabTab::Definition.register('downloads') do |c|
   end
 
   c.command(:config) do |config|
+    config.command(:remote_host)      { }
+    config.command(:remote_directory) { }
+    config.command(:local_directory)  { }
   end
 
   c.command(:help) do |help|
