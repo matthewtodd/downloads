@@ -1,19 +1,11 @@
-require 'yaml'
-
 module Downloads
   module Servers
-    CONFIG_FILE = File.join(ENV['HOME'], '.downloads', 'config')
-
-    def self.configuration
-      @@configuration ||= YAML.load_file(CONFIG_FILE)
-    end
-
     def self.local
-      @@local ||= Local.new(configuration['local_directory'])
+      @@local ||= Local.new(Configuration['local_directory'])
     end
 
     def self.remote
-      @@remote ||= Remote.new(configuration['remote_host'], configuration['remote_directory'])
+      @@remote ||= Remote.new(Configuration['remote_host'], Configuration['remote_directory'])
     end
 
     class Base
