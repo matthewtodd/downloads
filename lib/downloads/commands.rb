@@ -15,7 +15,7 @@ module Downloads
     # MAYBE we could use optparse at this top level as well, allowing for (1) overriding host & directory config and (2) faking remote interactions
     def self.lookup(argv)
       klass = registry[argv.shift] || Help
-      klass.new(Servers.local, Servers.remote, argv)
+      klass.new(Configuration.local_server, Configuration.remote_server, argv)
     end
 
     class Base

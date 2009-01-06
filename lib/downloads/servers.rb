@@ -1,13 +1,5 @@
 module Downloads
   module Servers
-    def self.local
-      @@local ||= Local.new(Configuration['local_directory'])
-    end
-
-    def self.remote
-      @@remote ||= Remote.new(Configuration['remote_host'], Configuration['remote_directory'])
-    end
-
     class Base
       def exists?(filename)
         files.detect { |file| file[:name] == filename }

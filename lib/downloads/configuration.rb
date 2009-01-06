@@ -11,6 +11,14 @@ module Downloads
       @@configuration[key]
     end
 
+    def self.local_server
+      @@local ||= Servers::Local.new(self['local_directory'])
+    end
+
+    def self.remote_server
+      @@remote ||= Servers::Remote.new(self['remote_host'], self['remote_directory'])
+    end
+
     def self.pid_file
       PID_FILE
     end
