@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{downloads}
-  s.version = "0.6.5"
+  s.version = "0.6.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matthew Todd"]
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["README.rdoc", "TODO.rdoc", "bin/downloads"]
   s.files = ["README.rdoc", "TODO.rdoc", "bin/downloads", "lib/downloads/commands/add.rb", "lib/downloads/commands/attachments.rb", "lib/downloads/commands/config.rb", "lib/downloads/commands/help.rb", "lib/downloads/commands/ls.rb", "lib/downloads/commands/mv.rb", "lib/downloads/commands/quit.rb", "lib/downloads/commands/rm.rb", "lib/downloads/commands/shell.rb", "lib/downloads/commands/status.rb", "lib/downloads/commands/sync.rb", "lib/downloads/commands.rb", "lib/downloads/configuration.rb", "lib/downloads/servers/local.rb", "lib/downloads/servers/remote.rb", "lib/downloads/servers.rb", "lib/downloads/tabtab_definitions.rb", "lib/downloads.rb", "resources/applescripts", "resources/applescripts/Add Downloads.app", "resources/applescripts/folderaction_download_webloc.scpt", "resources/applescripts/netnewswire_download_enclosure.scpt"]
   s.has_rdoc = true
-  s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.6.5", "--inline-source", "--line-numbers"]
+  s.rdoc_options = ["--main", "README.rdoc", "--title", "downloads-0.6.6", "--inline-source", "--line-numbers"]
   s.require_paths = ["lib"]
   s.requirements = ["rsync"]
   s.rubygems_version = %q{1.3.1}
