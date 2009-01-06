@@ -28,7 +28,7 @@ module Downloads
 
       case key.to_s
       when /^remote/
-        File.delete(path('remote_cache'))
+        File.delete(path('remote_cache')) if path('remote_cache').file?
         @remote_server = build_remote_server
       when /^local/
         @local_server = build_local_server
