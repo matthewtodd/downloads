@@ -36,8 +36,6 @@ module Downloads
       def initialize(local, remote, argv)
         @local, @remote = local, remote
         configure(argv)
-      rescue URI::InvalidURIError => e
-        puts e.message
       end
 
       def configure(argv)

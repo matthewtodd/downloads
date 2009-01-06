@@ -12,7 +12,7 @@ module Downloads
       def configure(argv)
         self.uris = []
         while uri = shift_argument(argv)
-          self.uris << URI.parse(uri)
+          self.uris << parse_uri(uri)
         end
       end
 
@@ -22,6 +22,14 @@ module Downloads
 
       def valid?
         uris.any?
+      end
+
+      private
+
+      def parse_uri(uri)
+        URI.parse(uri)
+      rescue URI::InvalidURIError => error
+        puts error.message
       end
     end
   end

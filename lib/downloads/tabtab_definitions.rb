@@ -8,6 +8,7 @@ TabTab::Definition.register('downloads') do |c|
     Downloads::Commands.names
   end
 
+  # FIXME don't shell out.
   def remote_files
     `downloads ls`.split("\n")
   end
