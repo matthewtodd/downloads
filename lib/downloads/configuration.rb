@@ -19,7 +19,7 @@ module Downloads
 
     def []=(key, value)
       @values[key.to_s] = value
-      File.open(path('config'), 'w') { |file| file.write(to_yaml) }
+      File.open(path('config'), 'w') { |file| file.puts(to_yaml) }
     end
 
     def local_server
@@ -35,7 +35,8 @@ module Downloads
     end
 
     def to_yaml
-      @values.to_yaml
+      # Marginally nicer than @values.to_yaml, as it avoids the leading '---'
+      @values.map { |key, value| "#{key}: #{value}" }.join("\n")
     end
 
     private
