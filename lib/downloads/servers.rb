@@ -2,11 +2,15 @@ module Downloads
   module Servers
     class Base
       def exists?(filename)
-        files.detect { |file| file[:name] == filename }
+        filenames.include?(filename)
       end
 
       def files
         raise NotImplementedError
+      end
+
+      def filenames
+        files.map { |file| file[:name] }
       end
 
       def rsync_path

@@ -8,9 +8,9 @@ TabTab::Definition.register('downloads') do |c|
     Downloads::Commands.names
   end
 
-  # FIXME don't shell out.
   def remote_files
-    `downloads ls`.split("\n")
+    require File.join(File.dirname(__FILE__), 'commands') unless Object.const_defined?(:Downloads)
+    Downloads::Commands.configuration.remote_server.filenames
   end
 
   # FIXME waiting for tabtab to support completion for multiple filenames

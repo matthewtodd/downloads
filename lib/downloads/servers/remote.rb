@@ -7,7 +7,6 @@ module Downloads
         @host, @directory, @cache_path, @connection = host, directory, cache_path, nil
       end
 
-      # FIXME is it weird to inject host & directory, but look up remote_cache_file?
       def files
         update_file_cache unless File.exists?(@cache_path)
         YAML.load_file(@cache_path)
