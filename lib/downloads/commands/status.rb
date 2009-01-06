@@ -11,7 +11,7 @@ module Downloads
       private
 
       def status(remote_file)
-        local_file = local.exists?(remote_file[:name]) || { :size => 0 }
+        local_file = local.files.detect(:size => 0) { |file| file[:name] == remote_file[:name] }
         percent(local_file[:size], remote_file[:size])
       end
 
