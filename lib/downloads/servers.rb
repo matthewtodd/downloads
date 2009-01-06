@@ -20,6 +20,5 @@ module Downloads
   end
 end
 
-require 'downloads/servers/fake'
 require 'downloads/servers/local'
 require 'downloads/servers/remote'
