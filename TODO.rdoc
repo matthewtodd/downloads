@@ -1,0 +1,4 @@
+* FIXME it appears that sometimes, all the `downloads sync` statements run from my crontab pile up on each other.
+
+* MAYBE download into different buckets? So that I can get podcasts without waiting for, say, a big linux distro.
+
