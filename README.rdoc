@@ -61,6 +61,6 @@ To update these parameters, pass the key and the new value like so:
 
 4. I like to set up a <b>GeekTool window</b> showing the results of <tt>downloads status</tt>. If you like, you can bottom-justify this text by piping it through http://gist.github.com/43363.
 
-5. Install Downloads on your mail server, and you can set up a special email address, say <tt>big.files@downloads.example.com</tt>, that pipes all its messages through <tt>downloads attachments</tt>. Currently, the messages will be dropped on the floor, but <b>any attachments will be dropped into your downloads folder</b>, ready to be sync'ed down.
+5. Install Downloads on your mail server, and you can set up a special email address, say <tt>big.files@downloads.example.com</tt>, that pipes all its messages through <tt>downloads attachments</tt>. Currently, the messages will be dropped on the floor, but <b>any attachments will be saved into your downloads folder</b>, ready to be sync'ed down.
 
 6. I've been noodling with some <b>applescripts</b>. Check out the <tt>resources</tt> folder.
