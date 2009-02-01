@@ -52,4 +52,9 @@ TabTab::Definition.register('downloads') do |c|
   c.command(:sync) do |sync|
     sync.command :kill
   end
+
+  # FIXME waiting for tabtab to support completion for multiple filenames
+  c.command(:video) do |add|
+    add.default { clipboard_contents.grep(/^http:/) }
+  end
 end
