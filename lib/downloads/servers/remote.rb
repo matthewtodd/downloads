@@ -8,7 +8,7 @@ module Downloads
         @directory  = directory
         @cache_path = cache_path
         @connection = nil
-        @files      = YAML.load_file(@cache_path) if File.exists?(@cache_path)
+        @files      = File.exists?(@cache_path) ? YAML.load_file(@cache_path) : nil
       end
 
       def files
