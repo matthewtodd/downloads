@@ -34,7 +34,7 @@ module Downloads
       end
 
       def initialize_connection
-        @connection = Net::SSH.start(@host, ENV['USER']) # TODO does it make sense to use ENV['USER']?
+        @connection = Net::SSH.start(@host, nil) # Always rely on user from .ssh/config; this parameter would override it if set.
         at_exit { @connection.close }
       end
 

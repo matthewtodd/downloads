@@ -18,7 +18,7 @@ spec = Gem::Specification.new do |spec|
   spec.email            = 'matthew.todd@gmail.com'
 
   spec.add_dependency     'hpricot', '>= 0.6.164'
-  spec.add_dependency     'net-ssh', '>= 2.0.3'
+  spec.add_dependency     'net-ssh', '>= 2.0.11'
   spec.add_dependency     'tabtab', '>= 0.9.1'
   spec.add_dependency     'tmail', '>= 1.2.2'
 
