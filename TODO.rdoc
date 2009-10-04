@@ -1,1 +1,5 @@
 * MAYBE download into different buckets? So that I can get podcasts without waiting for, say, a big linux distro.
+* Use rsync's --remove-source-files option so I don't have to clean up myself; but need a nice way to update the cache...
+* Add (and remove?) asynchronously.
+* MAYBE this might be a fun time to play with writing a Net::Rsync. But that would most definitely turn into a big project.
+* Automatically strip the query-string off the end of filenames. (NPR podcasts are bad in this way.)
